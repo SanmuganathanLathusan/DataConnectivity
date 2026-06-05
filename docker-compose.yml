@@ -1,0 +1,27 @@
+version: '3.8'
+
+services:
+  backend:
+    build: ./backend
+    image: lathusan/datafly-backend
+    env_file:
+      - ./backend/.env
+    ports:
+      - "8000:8000"
+    networks:
+      - data_platform_net
+
+  frontend:
+    build: ./frontend
+    image: lathusan/datafly-frontend
+    ports:
+      - "5173:80"
+    depends_on:
+      - backend
+    networks:
+      - data_platform_net
+
+networks:
+  data_platform_net:
+    driver: bridge
+
