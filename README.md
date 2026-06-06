@@ -1,4 +1,4 @@
-# ⚡Data Connectivity | Data Connectivity & Transfer Platform
+# | Data Connectivity & Transfer Platform
 
 <div align="center">
 
@@ -16,7 +16,7 @@
 
 ## 📖 Executive Summary
 
-**Datafly** is an enterprise-grade data management platform designed to bridge the gap between complex database infrastructures and intuitive user operations. It provides a centralized hub for developers and data engineers to securely connect to diverse relational databases, explore complex schemas with visual clarity, and execute high-performance data migrations across systems.
+**Data Connectivity ** is an enterprise-grade data management platform designed to bridge the gap between complex database infrastructures and intuitive user operations. It provides a centralized hub for developers and data engineers to securely connect to diverse relational databases, explore complex schemas with visual clarity, and execute high-performance data migrations across systems.
 
 Built with a focus on **Visual Excellence** and **Operational Security**, Datafly combines a high-performance FastAPI back-end with a premium, modern React front-end inspired by the design languages of Vercel and Stripe.
 
