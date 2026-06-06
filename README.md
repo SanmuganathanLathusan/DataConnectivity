@@ -1,4 +1,4 @@
-# ⚡ Datafly | Data Connectivity & Transfer Platform
+# ⚡Data Connectivity | Data Connectivity & Transfer Platform
 
 <div align="center">
 
@@ -27,43 +27,60 @@ Built with a focus on **Visual Excellence** and **Operational Security**, Datafl
 Datafly follows a decoupled, service-oriented architecture designed for scalability and security.
 
 ```mermaid
-graph TD
-    subgraph Client ["Client Layer (React + Vite)"]
-        UI[Premium Dashboard UI]
-        TW[Transfer Wizard]
-        EX[Schema Explorer]
+flowchart TB
+
+    %% Frontend
+    subgraph Frontend["🎨 Frontend (React + Vite)"]
+        UI["Dashboard UI"]
+        EX["Schema Explorer"]
+        TW["Transfer Wizard"]
+        AUTHUI["Login / Register"]
     end
 
-    subgraph API ["Logic Layer (FastAPI)"]
-        Auth[JWT/OAuth Service]
-        ConnM[Connection Manager]
-        Disc[Discovery Service]
-        Trans[Transfer Engine]
+    %% Backend
+    subgraph Backend["⚡ FastAPI Backend"]
+        JWT["JWT & Google OAuth"]
+        CM["Connection Manager"]
+        DS["Schema Discovery Service"]
+        TE["Transfer Engine"]
+        BG["Background Tasks"]
     end
 
-    subgraph Storage ["Storage Layer"]
-        MDB[(MongoDB Atlas - App State)]
-        ENC[Encryption Layer - AES-256]
+    %% Security
+    subgraph Security["🔐 Security Layer"]
+        ENC["Fernet Encryption"]
     end
 
-    subgraph Destinations ["External Data Sources"]
-        PG[(PostgreSQL)]
-        MY[(MySQL)]
-        SS[(SQL Server)]
+    %% Storage
+    subgraph Storage["🗄️ Application Storage"]
+        MDB[("MongoDB Atlas")]
     end
 
-    UI --> Auth
-    UI --> ConnM
-    TW --> Trans
-    EX --> Disc
+    %% Databases
+    subgraph Databases["💾 Supported Databases"]
+        PG[("PostgreSQL")]
+        MY[("MySQL")]
+        MSSQL[("SQL Server")]
+    end
 
-    Auth --> MDB
-    ConnM --> ENC
+    AUTHUI --> JWT
+    UI --> CM
+    EX --> DS
+    TW --> TE
+
+    JWT --> MDB
+    CM --> ENC
     ENC --> MDB
-    Trans --> PG
-    Trans --> MY
-    Disc --> PG
-end
+
+    DS --> PG
+    DS --> MY
+    DS --> MSSQL
+
+    TE --> PG
+    TE --> MY
+    TE --> MSSQL
+
+    TE --> BG
 ```
 
 ---
