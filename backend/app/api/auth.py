@@ -10,7 +10,7 @@ from app.models.models import user_helper
 from app.core.security import get_password_hash, verify_password, create_access_token
 from app.core.config import settings
 from app.schemas.schemas import (
-    UserCreate, User as UserSchema, Token, PasswordChange,
+    UserCreate, UserUpdate, User as UserSchema, Token, PasswordChange,
     ForgotPassword, ResetPassword, GoogleLogin
 )
 from app.services.email_service import send_reset_password_email
@@ -98,6 +98,28 @@ async def change_password(
 @router.get("/me", response_model=UserSchema)
 async def get_me(current_user: dict = Depends(get_current_user)):
     return current_user
+
+
+@router.patch("/me", response_model=UserSchema)
+async def update_me(
+    data: UserUpdate,
+    db: AsyncIOMotorDatabase = Depends(get_db),
+    current_user: dict = Depends(get_current_user)
+):
+    update_data = {}
+    if data.name is not None:
+        update_data["name"] = data.name.strip()
+
+    if not update_data:
+        return current_user
+
+    await db["users"].update_one(
+        {"email": current_user["email"]},
+        {"$set": update_data}
+    )
+
+    updated_user = await db["users"].find_one({"email": current_user["email"]})
+    return user_helper(updated_user)
 
 
 @router.delete("/account")
