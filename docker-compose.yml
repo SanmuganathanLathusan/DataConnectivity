@@ -3,7 +3,8 @@ version: '3.8'
 services:
   backend:
     build: ./backend
-    image: lathusan/datafly-backend
+    image: lathusan/datafly
+    
     env_file:
       - ./backend/.env
     ports:
@@ -13,7 +14,7 @@ services:
 
   frontend:
     build: ./frontend
-    image: lathusan/datafly-frontend
+    image: lathusan/datafly-fronend
     ports:
       - "5173:80"
     depends_on:

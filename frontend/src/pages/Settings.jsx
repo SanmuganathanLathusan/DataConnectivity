@@ -143,26 +143,35 @@ const Settings = () => {
     setTimeout(() => setToast(null), 3000);
   };
 
-  const handleSave = () => {
+  const handleSave = async () => {
     setIsSaving(true);
-    localStorage.setItem('settings_name',        profile.name);
-    localStorage.setItem('settings_email',       profile.email);
-    localStorage.setItem('settings_designation', profile.designation);
-    localStorage.setItem('settings_region',      profile.region);
-    Object.entries(notifs).forEach(([k, v]) => localStorage.setItem(`notif_${k}`, JSON.stringify(v)));
-    localStorage.setItem('settings_theme', theme);
-    Object.entries(sys).forEach(([k, v]) => localStorage.setItem(`sys_${k}`, typeof v === 'boolean' ? JSON.stringify(v) : v));
-    setProfileImage(tempImage);
-    if (tempImage) {
-      localStorage.setItem('profileImage', tempImage);
-    } else {
-      localStorage.removeItem('profileImage');
-    }
+    try {
+      const response = await api.patch('/auth/me', { name: profile.name.trim() });
+      const updatedProfile = response.data;
 
-    setTimeout(() => {
-      setIsSaving(false);
+      localStorage.setItem('settings_name', updatedProfile.name);
+      localStorage.setItem('settings_email', profile.email);
+      localStorage.setItem('settings_designation', profile.designation);
+      localStorage.setItem('settings_region', profile.region);
+      Object.entries(notifs).forEach(([k, v]) => localStorage.setItem(`notif_${k}`, JSON.stringify(v)));
+      localStorage.setItem('settings_theme', theme);
+      Object.entries(sys).forEach(([k, v]) => localStorage.setItem(`sys_${k}`, typeof v === 'boolean' ? JSON.stringify(v) : v));
+      setProfileImage(tempImage);
+      if (tempImage) {
+        localStorage.setItem('profileImage', tempImage);
+      } else {
+        localStorage.removeItem('profileImage');
+      }
+
+      window.dispatchEvent(new Event('profile-updated'));
+      setProfile((prev) => ({ ...prev, name: updatedProfile.name }));
       showToast('Settings successfully updated');
-    }, 600);
+    } catch (err) {
+      console.error('Failed to save settings:', err);
+      showToast('Failed to update settings', 'error');
+    } finally {
+      setIsSaving(false);
+    }
   };
 
   const handleImageChange = (e) => {

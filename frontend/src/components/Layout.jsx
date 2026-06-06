@@ -114,7 +114,12 @@ const Layout = ({ onLogout }) => {
     fetchNotifications();
     fetchProfile();
     const interval = setInterval(fetchNotifications, 60000);
-    return () => clearInterval(interval);
+    const handleProfileUpdated = () => fetchProfile();
+    window.addEventListener('profile-updated', handleProfileUpdated);
+    return () => {
+      clearInterval(interval);
+      window.removeEventListener('profile-updated', handleProfileUpdated);
+    };
   }, []);
 
   const handleLogout = () => {
@@ -214,7 +219,7 @@ const Layout = ({ onLogout }) => {
         
         <button 
            onClick={() => setSidebarOpen(!isSidebarOpen)}
-           className="absolute -right-3 top-20 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 hover:border-slate-300 transition-all z-50 shadow-sm lg:flex hidden"
+            className="absolute -right-3 top-20 w-6 h-6 bg-white border border-slate-200 rounded-full flex items-center justify-center text-slate-400 hover:text-slate-600 hover:border-slate-300 transition-all z-50 shadow-sm invisible lg:visible"
         >
           {isSidebarOpen ? <ChevronLeft size={14} /> : <ChevronRight size={14} />}
         </button>
