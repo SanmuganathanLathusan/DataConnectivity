@@ -4,310 +4,198 @@
 
 ### Secure Database Connectivity, Schema Exploration & High-Performance Data Migration
 
-[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge\&logo=docker\&logoColor=white)](https://www.docker.com/)
-[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge\&logo=fastapi\&logoColor=white)](https://fastapi.tiangolo.com/)
-[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge\&logo=react\&logoColor=61DAFB)](https://react.dev/)
-[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge\&logo=mongodb\&logoColor=white)](https://www.mongodb.com/)
-[![Vite](https://img.shields.io/badge/Vite-646CFF?style=for-the-badge\&logo=vite\&logoColor=white)](https://vitejs.dev/)
+[![Docker](https://img.shields.io/badge/Docker-2496ED?style=for-the-badge&logo=docker&logoColor=white)](https://www.docker.com/)
+[![FastAPI](https://img.shields.io/badge/FastAPI-009688?style=for-the-badge&logo=fastapi&logoColor=white)](https://fastapi.tiangolo.com/)
+[![React](https://img.shields.io/badge/React-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)](https://react.dev/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-4EA94B?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+[![TailwindCSS](https://img.shields.io/badge/Tailwind_CSS-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
 
 </div>
 
 ---
 
-## 📖 Overview
+## 📖 Executive Summary
 
-Datafly is a full-stack data management platform that enables users to securely connect to relational databases, explore schemas, and transfer data between systems through an intuitive web interface.
+**Datafly** is an enterprise-grade data management platform designed to bridge the gap between complex database infrastructures and intuitive user operations. It provides a centralized hub for developers and data engineers to securely connect to diverse relational databases, explore complex schemas with visual clarity, and execute high-performance data migrations across systems.
 
-The platform is designed to simplify database operations while maintaining security, scalability, and performance for modern data workflows.
-
----
-
-## ✨ Key Features
-
-### 🔐 Authentication & Security
-
-* JWT-based authentication
-* Google OAuth integration
-* Password reset via email
-* Secure session management
-* Encrypted credential storage
-
-### 🔌 Multi-Database Connectivity
-
-* PostgreSQL support
-* MySQL support
-* SQL Server support (if implemented)
-* Real-time connection testing
-* Connection management dashboard
-
-### 🗂️ Database Exploration
-
-* Interactive schema browser
-* Table and view inspection
-* Column metadata visualization
-* Database structure discovery
-
-### 🚀 Data Transfer Engine
-
-* Source-to-target database migration
-* Interactive column mapping
-* Background task processing
-* Transfer monitoring dashboard
-* Real-time progress tracking
-
-### 📊 Monitoring & Insights
-
-* Transfer statistics
-* Performance metrics
-* Progress indicators
-* Migration history tracking
-
-### ☁️ Cloud Ready
-
-* MongoDB Atlas integration
-* Docker containerization
-* Production deployment support
-* Scalable architecture
+Built with a focus on **Visual Excellence** and **Operational Security**, Datafly combines a high-performance FastAPI back-end with a premium, modern React front-end inspired by the design languages of Vercel and Stripe.
 
 ---
 
+## 🏗️ System Architecture
+
+Datafly follows a decoupled, service-oriented architecture designed for scalability and security.
+
+```mermaid
+graph TD
+    subgraph Client ["Client Layer (React + Vite)"]
+        UI[Premium Dashboard UI]
+        TW[Transfer Wizard]
+        EX[Schema Explorer]
+    end
+
+    subgraph API ["Logic Layer (FastAPI)"]
+        Auth[JWT/OAuth Service]
+        ConnM[Connection Manager]
+        Disc[Discovery Service]
+        Trans[Transfer Engine]
+    end
+
+    subgraph Storage ["Storage Layer"]
+        MDB[(MongoDB Atlas - App State)]
+        ENC[Encryption Layer - AES-256]
+    end
+
+    subgraph Destinations ["External Data Sources"]
+        PG[(PostgreSQL)]
+        MY[(MySQL)]
+        SS[(SQL Server)]
+    end
+
+    UI --> Auth
+    UI --> ConnM
+    TW --> Trans
+    EX --> Disc
+
+    Auth --> MDB
+    ConnM --> ENC
+    ENC --> MDB
+    Trans --> PG
+    Trans --> MY
+    Disc --> PG
+end
+```
+
+---
+
+## ✨ Premium Features
+
+### 🔌 Intelligent Connectivity
+- **Multi-Engine Support**: Seamlessly connect to PostgreSQL, MySQL, and SQL Server.
+- **Credential Encryption**: All database credentials are encrypted using Fernet (AES-128/256) before being stored in MongoDB Atlas.
+- **Connection Health Monitoring**: Real-time heartbeat checks to ensure database availability.
+
+### 🗂️ Advanced Schema Discovery
+- **Visual Meta-data Browser**: Explore tables, columns, and data types without writing a single line of SQL.
+- **Deep Inspection**: View detailed column properties and foreign key relationships (in progress).
+
+### 🚀 High-Performance Transfer Engine
+- **Source-to-Target Mapping**: Flexible column mapping allows you to rename or skip columns during migration.
+- **Batch Processing**: Optimized record fetching and insertion using SQLAlchemy Core for high throughput.
+- **Real-time Progress Tracking**: Monitor transfer progress row-by-row through a dedicated dashboard.
+- **Resilient Execution**: Managed background tasks that continue even if the browser session is closed.
+
+### 🎨 Modern UX/UI
+- **High-Contrast Design**: A "Premium Dark/Light" interface utilizing Tailwind CSS for a sleek, professional look.
+- **Dynamic Interactions**: Smooth transitions and micro-animations powered by Framer Motion.
+- **Responsive Layout**: Native-feel experience across desktops, tablets, and mobile devices.
+
+---
 
 ## 🛠️ Technology Stack
 
-| Category         | Technologies                      |
-| ---------------- | --------------------------------- |
-| Frontend         | React, Vite, JavaScript           |
-| UI/UX            | CSS3, Framer Motion, Lucide Icons |
-| Backend          | FastAPI, Python                   |
-| Database         | MongoDB Atlas        |
-| Authentication   | JWT, Google OAuth                 |
-| Containerization | Docker, Docker Compose            |
-| Deployment       | Nginx, Vercel                     |
+| Component | Technology | Rationale |
+| :--- | :--- | :--- |
+| **Frontend** | React 18, Vite | For lightning-fast HMR and reactive state management. |
+| **Styling** | Tailwind CSS | Utility-first approach for consistent, premium design tokens. |
+| **Icons** | Lucide React | Clean, scalable vector icons consistent across the UI. |
+| **Backend** | FastAPI | High-performance asynchronous API framework for Python. |
+| **DB (Application)** | MongoDB Atlas | Flexible document storage for connection metadata and logs. |
+| **DB (Drivers)** | SQL Alchemy | Robust ORM/Core for cross-database compatibility. |
+| **Auth** | JWT & Google OAuth | Industry-standard secure identity management. |
+| **Deployment** | Docker & Nginx | Containerized for easy scaling and environment parity. |
 
 ---
 
-## 📂 Project Structure
+## 📂 Project Repository Analysis
+
+The repository is structured for maximum maintainability and clear separation of concerns.
 
 ```text
-DataConnectivity/
-│
-├── frontend/
-│   ├── public/
+.
+├── frontend/             # React application (Vite-powered)
 │   ├── src/
-│   │   ├── assets/
-│   │   ├── components/
-│   │   ├── hooks/
-│   │   ├── pages/
-│   │   ├── services/
-│   │   ├── App.jsx
-│   │   └── main.jsx
-│   │
-│   ├── Dockerfile
-│   ├── package.json
-│   ├── vite.config.js
-│   └── .env
-│
-├── backend/
+│   │   ├── components/   # Reusable UI components (Modals, Charts, Sidebars)
+│   │   ├── pages/        # Main application views (Dashboard, Transfer, History)
+│   │   ├── api/          # Axios instance and API call definitions
+│   │   └── utils/        # Helper functions and formatters
+├── backend/              # FastAPI application
 │   ├── app/
-│   │   ├── api/
-│   │   ├── core/
-│   │   ├── database/
-│   │   ├── models/
-│   │   ├── schemas/
-│   │   ├── services/
-│   │   ├── utils/
-│   │   └── main.py
-│   │
-│   ├── requirements.txt
-│   ├── Dockerfile
-│   └── .env
-│
-├── nginx/
-│   └── nginx.conf
-│
-├── docker-compose.yml
-├── README.md
-├── .gitignore
-└── LICENSE
-```
-d
+│   │   ├── api/          # Route handlers (Controllers)
+│   │   ├── core/         # Config, Security, and JWT logic
+│   │   ├── models/       # Data models (Pydantic & MongoDB schemas)
+│   │   ├── services/     # Business logic (Transfer Engine, DB Discovery)
+│   │   └── db/           # Database session and connection logic
+├── docker-compose.yml    # Full-stack container orchestration
+└── nginx/                # Proxy configuration for production
 ```
 
 ---
 
-## ⚙️ Environment Variables
+## 🚀 Deployment & Installation
 
-Create a `.env` file inside the `backend` directory.
-
+### Prerequisite: Environment Configuration
+Create a `.env` file in the `/backend` directory:
 ```env
-# Security
-SECRET_KEY=your_secret_key
-ENCRYPTION_KEY=your_encryption_key
-
-# MongoDB Atlas
-MONGO_URI=your_mongodb_connection_string
+SECRET_KEY=your-secure-secret-key
+ENCRYPTION_KEY=your-fernet-encryption-key
+MONGO_URI=mongodb+srv://...
 MONGO_DB_NAME=datafly
-
-# Google Authentication
-GOOGLE_CLIENT_ID=your_google_client_id
-
-# Email Service
-EMAIL_USER=your_email@gmail.com
-EMAIL_PASS=your_app_password
+GOOGLE_CLIENT_ID=...
 ```
 
----
-
-## 🚀 Quick Start Using Docker
-
-### 1. Clone the Repository
-
-```bash
-git clone https://github.com/yourusername/datafly.git
-cd datafly
-```
-
-### 2. Configure Environment Variables
-
-Create the `.env` file inside the backend folder and add all required credentials.
-
-### 3. Build and Run Containers
-
+### Option 1: Docker (Recommended)
+Launch the entire stack with a single command:
 ```bash
 docker-compose up --build
 ```
+- **Frontend**: `http://localhost:5173`
+- **Backend API**: `http://localhost:8000`
+- **API Documentation**: `http://localhost:8000/docs`
 
-### 4. Open the Application
+### Option 2: Manual Setup
 
-| Service      | URL                        |
-| ------------ | -------------------------- |
-| Frontend     | http://localhost:5173      |
-| Backend API  | http://localhost:8000      |
-| Swagger Docs | http://localhost:8000/docs |
-
----
-
-## 💻 Local Development Setup
-
-### Frontend
-
-```bash
-cd frontend
-
-npm install
-
-npm run dev
-```
-
-### Backend
-
+**Backend Deployment:**
 ```bash
 cd backend
-
+python -m venv venv
+source venv/bin/activate  # or venv\Scripts\activate on Windows
 pip install -r requirements.txt
-
 uvicorn app.main:app --reload
 ```
 
----
-
-## 🔌 API Endpoints
-
-| Method | Endpoint              | Description           |
-| ------ | --------------------- | --------------------- |
-| POST   | /auth/register        | Register User         |
-| POST   | /auth/login           | User Login            |
-| POST   | /auth/google          | Google Authentication |
-| POST   | /auth/forgot-password | Password Recovery     |
-| GET    | /connections          | Fetch Connections     |
-| POST   | /connections          | Create Connection     |
-| PUT    | /connections/{id}     | Update Connection     |
-| DELETE | /connections/{id}     | Delete Connection     |
-| POST   | /transfer/start       | Start Transfer        |
-| GET    | /transfer/status/{id} | Transfer Status       |
+**Frontend Deployment:**
+```bash
+cd frontend
+npm install
+npm run dev
+```
 
 ---
 
-## 🔒 Security Features
+## 🛡️ Security Architecture
 
-* JWT Authentication
-* Password Hashing
-* Secure Email Verification
-* OAuth Integration
-* Encrypted Database Credentials
-* Protected API Routes
-* Environment Variable Configuration
+1. **Authentication**: All protected routes require a Bearer JWT token.
+2. **Authorization**: User-specific data access ensures one user cannot see another's database connections.
+3. **Data Protection**: Sensitive database passwords are encrypted at rest using a unique `ENCRYPTION_KEY`.
+4. **CORS Policy**: Configurable origins to prevent unauthorized domain access.
 
 ---
 
-## 📈 Future Enhancements
-
-* Scheduled Data Transfers
-* Data Validation Rules
-* Transfer Templates
-* User Role Management
-* Audit Logging
-* Advanced Analytics Dashboard
-* Additional Database Connectors
-
----
-
-## 👥 Team Members
-
-### Lathusan Shanmuganathan
-
-**Full Stack Developer**
-
-* GitHub: https://github.com/yourusername
-* LinkedIn: https://linkedin.com/in/yourprofile
-
-### Team Member 2
-
-**Backend Developer**
-
-* GitHub: https://github.com/member2
-
-### Team Member 3
-
-**Frontend Developer**
-
-* GitHub: https://github.com/member3
-
----
-
-## 📚 Documentation
-
-Additional documentation can be found in:
-
-* Architecture Documentation
-* Setup Guide
-* API Documentation
-* Deployment Guide
-
----
-
-## 📄 License
-
-This project is developed for educational, research, and portfolio purposes.
-
----
-
-## 👨‍💻 Author
+## 👨‍💻 Project Lead
 
 **Lathusan Shanmuganathan**
+*Full-Stack Engineer specialized in Data Connectivity Systems*
 
-📧 Email: [lathusanlathusan40@gmail.com](mailto:lathusanlathusan40@gmail.com)
-
-💼 LinkedIn: https://linkedin.com/in/yourprofile
-
-🐙 GitHub: https://github.com/yourusername
+- **Email**: [lathusanlathusan40@gmail.com](mailto:lathusanlathusan40@gmail.com)
+- **LinkedIn**: [linkedin.com/in/lathusan](https://linkedin.com/in/yourprofile)
+- **GitHub**: [github.com/SanmuganathanLathusan](https://github.com/SanmuganathanLathusan)
 
 ---
 
 <div align="center">
 
-### ⭐ If you found this project useful, consider giving it a star.
-
-Built with FastAPI, React, MongoDB Atlas, and Docker.
+### ⭐ Innovation in Data Portability
+Developed for high-performance data migration and secure database exploration.
 
 </div>
