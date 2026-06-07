@@ -70,9 +70,27 @@ const TransferWizard = () => {
     setStep(4);
     const initialMapping = {};
     sourceColumns.forEach(c => {
-      initialMapping[col.name] = col.name;
+      initialMapping[c.name] = c.name;
     });
     setMapping(initialMapping);
+  };
+
+  const formatApiError = (detail) => {
+    if (Array.isArray(detail)) {
+      return detail
+        .map((item) => item?.msg || item?.message || 'Validation error')
+        .join('; ');
+    }
+
+    if (typeof detail === 'string') {
+      return detail;
+    }
+
+    if (detail && typeof detail === 'object') {
+      return detail.msg || detail.message || 'The transfer task could not be started.';
+    }
+
+    return 'The transfer task could not be started.';
   };
 
   const executeTransfer = async () => {
@@ -80,8 +98,8 @@ const TransferWizard = () => {
     setError('');
     try {
       await api.post('/transfers/', {
-        source_connection_id: parseInt(sourceId),
-        destination_connection_id: parseInt(destId),
+        source_connection_id: sourceId,
+        destination_connection_id: destId,
         table_name: selectedTable,
         source_schema: selectedSchema,
         dest_schema: 'public',
@@ -89,7 +107,7 @@ const TransferWizard = () => {
       });
       navigate('/history');
     } catch (err) {
-      setError(err.response?.data?.detail || "The transfer task could not be started.");
+      setError(formatApiError(err.response?.data?.detail || err.response?.data));
       setIsExecuting(false);
     }
   };

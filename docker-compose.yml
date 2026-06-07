@@ -6,7 +6,7 @@ services:
     image: lathusan/datafly
     
     env_file:
-      - ./backend/.env
+      - ./backend/app/.env
     ports:
       - "8000:8000"
     networks:

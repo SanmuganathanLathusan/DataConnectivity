@@ -12,6 +12,7 @@ const Auth = ({ onLogin, mode: initialMode }) => {
   const [error, setError] = useState('');
   const [isSuccess, setIsSuccess] = useState(false);
   const googleButtonRef = useRef(null);
+  const googleInitializedRef = useRef(false);
 
   const [formData, setFormData] = useState({
     name: '',
@@ -21,7 +22,8 @@ const Auth = ({ onLogin, mode: initialMode }) => {
 
   useEffect(() => {
     /* global google */
-    if (window.google) {
+    if (window.google && !googleInitializedRef.current) {
+      googleInitializedRef.current = true;
       google.accounts.id.initialize({
         client_id: "138943787910-qrlmr7jnggda1reba75nrglif3a0ss94.apps.googleusercontent.com",
         callback: handleGoogleResponse
@@ -37,7 +39,7 @@ const Auth = ({ onLogin, mode: initialMode }) => {
         });
       }
     }
-  }, [isSignUp]); // Re-render when switching modes to ensure ref exists
+  }, [isSignUp]); // Keep the button mounted, but initialize Google only once.
 
   const handleGoogleResponse = async (response) => {
     setIsLoading(true);

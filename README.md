@@ -199,6 +199,16 @@ npm run dev
 
 ---
 
+## 📚 Detailed Documentation
+
+For more in-depth information, please refer to the following:
+
+- **[Installation & Setup](docs/SETUP.md)**: step-by-step guides for local and production deployment.
+- **[API Reference](docs/API_DOCUMENTATION.md)**: Detailed endpoint documentation and sample payloads.
+- **[System Architecture](docs/ARCHITECTURE.md)**: Deep dive into the platform's design and data workflows.
+
+---
+
 ## 👨‍💻 Project Lead
 
 **Lathusan Shanmuganathan**
