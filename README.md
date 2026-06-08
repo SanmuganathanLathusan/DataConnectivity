@@ -215,7 +215,7 @@ For more in-depth information, please refer to the following:
 *Full-Stack Engineer specialized in Data Connectivity Systems*
 
 - **Email**: [lathusanlathusan40@gmail.com](mailto:lathusanlathusan40@gmail.com)
-- **LinkedIn**: [linkedin.com/in/lathusan](https://linkedin.com/in/yourprofile)
+- **LinkedIn**: [linkedin.com/in/lathusan](https://www.linkedin.com/in/lathusan-shanmuganathan-90b89b372/)
 - **GitHub**: [github.com/SanmuganathanLathusan](https://github.com/SanmuganathanLathusan)
 
 ---
